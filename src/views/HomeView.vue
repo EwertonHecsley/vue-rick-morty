@@ -1,5 +1,9 @@
 <script setup lang="ts">
 
+function goGitHub() {
+  window.open('https://github.com/EwertonHecsley', '_blank');
+}
+
 </script>
 
 <template>
@@ -10,13 +14,15 @@
     <div class="container-main">
       <div class="container-git-hub">
         <img src="../assets/images/GitHub-Logo.svg" alt="">
-        <button type="button">Git Hub</button>
+        <button @click="goGitHub" type="button">Git Hub</button>
       </div>
       <div>
-        <h1 style="color: wheat;">Conteudo de texto</h1>
+        <h1 style="color:rgba(0, 255, 0, 0.5); font-size: 60px;font-family: 'Rubik Burned', system-ui;">
+          Consumindo a API
+        </h1>
       </div>
-      <div>
-        <img src="" alt="">
+      <div class="container-linkedin">
+        <img src="../assets/images/linkedin.svg" alt="">
         <button type="button">Linkedin</button>
       </div>
     </div>
@@ -25,6 +31,7 @@
 <style>
 html,
 body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   height: 100%;
   margin: 0;
   padding: 0;
@@ -38,7 +45,7 @@ main {
 }
 
 main img {
-  height: 550px;
+  height: 450px;
 }
 
 .container-main {
@@ -46,7 +53,7 @@ main img {
   justify-content: space-between;
   align-items: center;
   width: 70vw;
-  margin: 10px 200px;
+  margin: 0px 200px;
 }
 
 .container-git-hub {
@@ -63,6 +70,12 @@ main img {
   overflow: hidden;
 }
 
+.container-git-hub button:hover {
+  background-color: green;
+  box-shadow: 5px 5px 10px rgba(1, 26, 1, 0.5);
+  color: wheat;
+}
+
 .container-git-hub img {
   height: 120px;
 }
@@ -73,5 +86,39 @@ main img {
   border-radius: 10px;
   border-style: none;
   background-color: rgb(10, 255, 0, 0.5);
+  font-size: larger;
+}
+
+.container-linkedin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border-style: none;
+  height: 30vh;
+  width: 15vw;
+  background-color: rgb(28, 39, 24);
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px rgba(0, 255, 0, 0.5);
+  overflow: hidden;
+}
+
+.container-linkedin button:hover {
+  background-color: green;
+  box-shadow: 5px 5px 10px rgba(1, 26, 1, 0.5);
+  color: wheat;
+}
+
+.container-linkedin img {
+  height: 120px;
+}
+
+.container-linkedin button {
+  width: 70%;
+  height: 50px;
+  border-radius: 10px;
+  border-style: none;
+  background-color: rgb(10, 255, 0, 0.5);
+  font-size: large;
 }
 </style>
