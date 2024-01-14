@@ -22,9 +22,9 @@ interface Personagem {
 const listOfPerson = ref<Personagem[]>([]);
 const information = ref<Info | null>(null);
 
-const carregarPersonagens = async () => {
+const carregarPersonagens = async (url: string) => {
     try {
-        const response = await axios.get(information.value?.next || '/character');
+        const response = await axios.get(url);
         listOfPerson.value = response.data.results;
         information.value = response.data.info;
     } catch (error) {
@@ -32,13 +32,20 @@ const carregarPersonagens = async () => {
     }
 };
 
-const carregarProximaPagina = (event: MouseEvent) => {
-    event.preventDefault();
-    carregarPersonagens();
+const carregarProximaPagina = () => {
+    if (information.value?.next) {
+        carregarPersonagens(information.value.next);
+    }
+};
+
+const carregarPaginaAnterior = () => {
+    if (typeof information.value?.prev === 'string') {
+        carregarPersonagens(information.value.prev);
+    }
 };
 
 onBeforeMount(() => {
-    carregarPersonagens();
+    carregarPersonagens('/character');
 });
 </script>
 
@@ -48,14 +55,15 @@ onBeforeMount(() => {
             <h1>Lista de Personagens</h1>
         </div>
         <div class="container-btn">
-            <button v-if="information?.prev !== null" @click="carregarProximaPagina">Voltar Página</button>
+            <button @click="carregarPaginaAnterior" v-if="information?.prev !== null">Voltar
+                Página</button>
             <button @click="carregarProximaPagina">Próxima Página</button>
         </div>
         <div class="container-card">
             <PersonagemCard v-for="personagem in listOfPerson" :key="personagem.id" :personagem="personagem" />
         </div>
         <div class="container-btn">
-            <button v-if="information?.prev !== null" @click="carregarProximaPagina">Voltar Página</button>
+            <button @click="carregarPaginaAnterior" v-if="information?.prev !== null">Voltar Página</button>
             <button @click="carregarProximaPagina">Próxima Página</button>
         </div>
     </div>
