@@ -15,6 +15,11 @@ import { RouterLink } from 'vue-router';
     </div>
 </template>
 <style scoped>
+.container-cabeca {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
 .container-cabeca ul {
     display: flex;
     justify-content: space-around;
@@ -44,7 +49,6 @@ li:not(:last-child)::after {
 
 li:hover {
     color: #006400;
-    font-size: 1.1em;
     cursor: pointer;
 }
 </style>

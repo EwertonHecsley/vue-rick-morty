@@ -1,50 +1,73 @@
 <script setup lang="ts">
 import { onBeforeMount, ref } from 'vue';
 import axios from '../axios';
+import PersonagemCard from '../components/PersonagemCard.vue';
 
 interface Info {
-    count: number
-    pages: number
-    next: string
-    prev: string | boolean
+    count: number;
+    pages: number;
+    next: string;
+    prev: string | boolean;
 }
 
 interface Personagem {
-    id: number
-    name: string
-    image: string
-    gender: string
-    species: string
-    status: string
-};
-
-interface ResponseAPI {
-    info: Info
-    results: Personagem[]
+    id: number;
+    name: string;
+    image: string;
+    gender: string;
+    species: string;
+    status: string;
 }
 
-const listOfPerson = ref<ResponseAPI[]>([]);
+const listOfPerson = ref<Personagem[]>([]);
+const information = ref<Info | null>(null);
 
-const getPersons = async () => {
+const carregarPersonagens = async () => {
     try {
-        const response = await axios.get('/character');
-        listOfPerson.value = response.data;
-        console.log(listOfPerson);
+        const response = await axios.get(information.value?.next || '/character');
+        listOfPerson.value = response.data.results;
+        information.value = response.data.info;
     } catch (error) {
         console.error('Erro ao consultar personagens', error);
     }
 };
 
-onBeforeMount(getPersons);
+const carregarProximaPagina = (event: MouseEvent) => {
+    event.preventDefault();
+    carregarPersonagens();
+};
 
+onBeforeMount(() => {
+    carregarPersonagens();
+});
 </script>
 
 <template>
-    <main>
-        <div class="container-cabeca">
-            <h1 style="color:white">Lista de Personagens</h1>
+    <div class="container">
+        <div>
+            <h1>Lista de Personagens</h1>
         </div>
-    </main>
+        <div class="container-card">
+            <PersonagemCard v-for="personagem in listOfPerson" :key="personagem.id" :personagem="personagem" />
+        </div>
+        <div>
+            <button v-if="information?.prev !== null" @click="carregarProximaPagina">Voltar Página</button>
+            <button @click="carregarProximaPagina">Próxima Página</button>
+        </div>
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: wheat;
+}
+
+.container-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+</style>
