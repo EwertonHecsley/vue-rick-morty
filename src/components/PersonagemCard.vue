@@ -1,24 +1,6 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue';
 
-interface Personagem {
-    id: number;
-    name: string;
-    image: string;
-    gender: string;
-    species: string;
-    status: string;
-}
-
-const personagem = ref<Personagem>({
-    id: 0,
-    name: '',
-    image: '',
-    gender: '',
-    species: '',
-    status: '',
-});
-
 const handleImageLoaded = ref(false);
 
 const handleImageLoad = () => {
@@ -48,6 +30,7 @@ const props = defineProps(['personagem']);
     margin: 10px;
     padding: 10px;
     width: 200px;
+    text-align: center;
 }
 
 img {
