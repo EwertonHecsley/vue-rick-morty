@@ -4,6 +4,10 @@ function goGitHub() {
   window.open('https://github.com/EwertonHecsley', '_blank');
 }
 
+function goLinkedin() {
+  window.open('https://www.linkedin.com/in/ewerton-hecsley-8a613992/', '_blank');
+}
+
 </script>
 
 <template>
@@ -23,7 +27,7 @@ function goGitHub() {
       </div>
       <div class="container-linkedin">
         <img src="../assets/images/linkedin.svg" alt="">
-        <button type="button">Linkedin</button>
+        <button @click="goLinkedin" type="button">Linkedin</button>
       </div>
     </div>
   </main>
